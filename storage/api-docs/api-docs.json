@@ -1,0 +1,1114 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "leave API",
+        "description": "請假系統相關api",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api",
+            "description": "Localhost"
+        }
+    ],
+    "paths": {
+        "/": {},
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "使用者登入",
+                "description": "使用者登入",
+                "operationId": "5dbcfe52b09670c41b9820b3f8dd1150",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "admin1@gmail.com",
+                                    "password": "admin1234"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "Successfully logged in"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "The email field is required. (and 1 more error)",
+                                    "errors": {
+                                        "email": [
+                                            "The email field is required."
+                                        ],
+                                        "password": [
+                                            "The password field is required."
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "使用者登出",
+                "description": "使用者登出",
+                "operationId": "de01037031c4b9c1a235fd373182d6e0",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "Successfully logged out"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/auth/user": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "取得個人資料",
+                "description": "取得個人資料",
+                "operationId": "12a2ce7be5115b60496440da4f510a99",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "id": 1,
+                                    "name": "admin1",
+                                    "email": "admin1@gmail.com",
+                                    "is_admin": 1,
+                                    "profile": null
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/auth/user/leave": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "取得個人請假資訊",
+                "description": "取得個人請假資訊",
+                "operationId": "d931aa85e3b79fee258f0513db9fdfb8",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "current_page": 1,
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "user_id": 3,
+                                            "leave_id": 1,
+                                            "description": "got some fever symptoms",
+                                            "start_date": "2024-08-11",
+                                            "start_time": "09:30:00",
+                                            "end_date": "2024-08-11",
+                                            "end_time": "18:30:00",
+                                            "is_reviewed": 1,
+                                            "user": {
+                                                "id": 3,
+                                                "name": "test1",
+                                                "email": "test1@gmail.com",
+                                                "is_admin": 0
+                                            },
+                                            "leave": {
+                                                "id": 1,
+                                                "name": "sick leave"
+                                            },
+                                            "result": {
+                                                "id": 1,
+                                                "leave_request_id": 1,
+                                                "review_user_id": 1,
+                                                "is_allowed": 1,
+                                                "user": {
+                                                    "id": 1,
+                                                    "name": "admin1",
+                                                    "email": "admin1@gmail.com",
+                                                    "is_admin": 1
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "first_page_url": "http://localhost:8000/api/auth/user/leave?page=1",
+                                    "from": 1,
+                                    "last_page": 1,
+                                    "last_page_url": "http://localhost:8000/api/auth/user/leave?page=1",
+                                    "links": [
+                                        {
+                                            "url": null,
+                                            "label": "&laquo; Previous",
+                                            "active": false
+                                        },
+                                        {
+                                            "url": "http://localhost:8000/api/auth/user/leave?page=1",
+                                            "label": "1",
+                                            "active": true
+                                        },
+                                        {
+                                            "url": null,
+                                            "label": "Next &raquo;",
+                                            "active": false
+                                        }
+                                    ],
+                                    "next_page_url": null,
+                                    "path": "http://localhost:8000/api/auth/user/leave",
+                                    "per_page": 10,
+                                    "prev_page_url": null,
+                                    "to": 2,
+                                    "total": 2
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "取得全部使用者資料",
+                "description": "取得全部使用者資料",
+                "operationId": "3f85992fd8c55234c844e5bc0f4c6d91",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "current_page": 1,
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "name": "admin1",
+                                            "email": "admin1@gmail.com",
+                                            "is_admin": 1
+                                        },
+                                        {
+                                            "id": 2,
+                                            "name": "test1",
+                                            "email": "test1@gmail.com",
+                                            "is_admin": 0
+                                        }
+                                    ],
+                                    "first_page_url": "http://localhost:8000/api/users?page=1",
+                                    "from": 1,
+                                    "last_page": 1,
+                                    "last_page_url": "http://localhost:8000/api/users?page=1",
+                                    "links": [
+                                        {
+                                            "url": null,
+                                            "label": "&laquo; Previous",
+                                            "active": false
+                                        },
+                                        {
+                                            "url": "http://localhost:8000/api/users?page=1",
+                                            "label": "1",
+                                            "active": true
+                                        },
+                                        {
+                                            "url": null,
+                                            "label": "Next &raquo;",
+                                            "active": false
+                                        }
+                                    ],
+                                    "next_page_url": null,
+                                    "path": "http://localhost:8000/api/users",
+                                    "per_page": 10,
+                                    "prev_page_url": null,
+                                    "to": 2,
+                                    "total": 2
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "建立使用者",
+                "description": "建立使用者",
+                "operationId": "28e4b5aff242d5a21f96f60b134d83c4",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "is_admin": {
+                                        "type": "boolean"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "name": "example1",
+                                    "email": "example1@gmail.com",
+                                    "is_admin": false,
+                                    "password": "example1234",
+                                    "password_confirmation": "example1234"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "Success"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "The name field is required. (and 3 more error)",
+                                    "errors": {
+                                        "name": [
+                                            "The name field is required."
+                                        ],
+                                        "email": [
+                                            "The email field is required."
+                                        ],
+                                        "is_admin": [
+                                            "The is_admin field is required."
+                                        ],
+                                        "password": [
+                                            "The password field is required."
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "取得特定使用者資料",
+                "description": "取得特定使用者資料",
+                "operationId": "getUserById",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "User id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "id": 1,
+                                    "name": "admin1",
+                                    "email": "admin1@gmail.com",
+                                    "is_admin": 1,
+                                    "profile": {
+                                        "id": 1,
+                                        "user_id": 1,
+                                        "birthday_date": "1997-07-07",
+                                        "entry_date": "2024-07-07"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "刪除特定使用者",
+                "description": "刪除特定使用者",
+                "operationId": "deleteUserById",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "User id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "Success"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/profile": {
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "修改特定使用者額外資訊",
+                "description": "修改特定使用者額外資訊",
+                "operationId": "putUserById-profile",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "User id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "birthday_date": {
+                                        "type": "string"
+                                    },
+                                    "entry_date": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "birthday_date": "1996-12-25",
+                                    "entry_date": "2024-07-07"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "Success"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "The birthday_date field is required. (and 1 more error)",
+                                    "errors": {
+                                        "birthday_date": [
+                                            "The birthday_date field is required."
+                                        ],
+                                        "entry_date": [
+                                            "The entry_date field is required."
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/email": {
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "修改特定使用者郵件信箱",
+                "description": "修改特定使用者郵件信箱",
+                "operationId": "putUserById-email",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "User id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "test9876@gmail.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "Success"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "The email field is required.",
+                                    "errors": {
+                                        "email": [
+                                            "The email field is required."
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/password": {
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "修改特定使用者密碼",
+                "description": "修改特定使用者密碼",
+                "operationId": "putUserById-password",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "User id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "password": "test9876",
+                                    "password_confirmation": "test9876"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "Success"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "The password field is required.",
+                                    "errors": {
+                                        "password": [
+                                            "The password field is required."
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/leave": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "取得特定使用者請假狀態",
+                "description": "取得特定使用者請假狀態",
+                "operationId": "getUserById-leave",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "current_page": 1,
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "user_id": 3,
+                                            "leave_id": 1,
+                                            "description": "got some fever symptoms",
+                                            "start_date": "2024-08-11",
+                                            "start_time": "09:30:00",
+                                            "end_date": "2024-08-11",
+                                            "end_time": "18:30:00",
+                                            "is_reviewed": 1,
+                                            "user": {
+                                                "id": 3,
+                                                "name": "test1",
+                                                "email": "test1@gmail.com",
+                                                "is_admin": 0
+                                            },
+                                            "leave": {
+                                                "id": 1,
+                                                "name": "sick leave"
+                                            },
+                                            "result": {
+                                                "id": 1,
+                                                "leave_request_id": 1,
+                                                "review_user_id": 1,
+                                                "is_allowed": 1,
+                                                "user": {
+                                                    "id": 1,
+                                                    "name": "admin1",
+                                                    "email": "admin1@gmail.com",
+                                                    "is_admin": 1
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "first_page_url": "http://localhost:8000/api/user/3/leave?page=1",
+                                    "from": 1,
+                                    "last_page": 1,
+                                    "last_page_url": "http://localhost:8000/api/user/3/leave?page=1",
+                                    "links": [
+                                        {
+                                            "url": null,
+                                            "label": "&laquo; Previous",
+                                            "active": false
+                                        },
+                                        {
+                                            "url": "http://localhost:8000/api/user/3/leave?page=1",
+                                            "label": "1",
+                                            "active": true
+                                        },
+                                        {
+                                            "url": null,
+                                            "label": "Next &raquo;",
+                                            "active": false
+                                        }
+                                    ],
+                                    "next_page_url": null,
+                                    "path": "http://localhost:8000/api/user/3/leave",
+                                    "per_page": 10,
+                                    "prev_page_url": null,
+                                    "to": 2,
+                                    "total": 2
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/leave/{leave_id}/request": {
+            "post": {
+                "tags": [
+                    "Leave"
+                ],
+                "summary": "建立請假請求",
+                "description": "建立請假請求",
+                "operationId": "postLeaveById",
+                "parameters": [
+                    {
+                        "name": "leave_id",
+                        "in": "path",
+                        "description": "Leave id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "start_date": {
+                                        "type": "string"
+                                    },
+                                    "start_time": {
+                                        "type": "string"
+                                    },
+                                    "end_date": {
+                                        "type": "string"
+                                    },
+                                    "end_time": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "description": "got some fever symptoms",
+                                    "start_date": "2024-08-11",
+                                    "start_time": "09:30",
+                                    "end_date": "2024-08-11",
+                                    "end_time": "18:30"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "Success"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "The description field is required. (and 1 more error)",
+                                    "errors": {
+                                        "description": [
+                                            "The description field is required."
+                                        ],
+                                        "start_date": [
+                                            "The start_date field is required."
+                                        ],
+                                        "start_time": [
+                                            "The start_time field is required."
+                                        ],
+                                        "end_date": [
+                                            "The end_date field is required."
+                                        ],
+                                        "end_time": [
+                                            "The end_time field is required."
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/leaveRequest/{leave_requeset_id}/review": {
+            "post": {
+                "tags": [
+                    "Leave"
+                ],
+                "summary": "簽核請假請求(管理權限只用者才可操作)",
+                "description": "簽核請假請求(管理權限只用者才可操作)",
+                "operationId": "postLeaveRequestById",
+                "parameters": [
+                    {
+                        "name": "leave_requeset_id",
+                        "in": "path",
+                        "description": "Leave Request id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "is_allowed": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "is_allowed": true
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "Success"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "message": "The is_allowed field is required.",
+                                    "errors": {
+                                        "is_allowed": [
+                                            "The is_allowed field is required."
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/leave": {
+            "get": {
+                "tags": [
+                    "Leave"
+                ],
+                "summary": "取得全部請假狀態(管理權限只用者才可操作)",
+                "description": "取得全部請假狀態(管理權限只用者才可操作)",
+                "operationId": "8f5bd8b7bbd68b1507382ae51b4d35ec",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "current_page": 1,
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "user_id": 3,
+                                            "leave_id": 1,
+                                            "description": "got some fever symptoms",
+                                            "start_date": "2024-08-11",
+                                            "start_time": "09:30:00",
+                                            "end_date": "2024-08-11",
+                                            "end_time": "18:30:00",
+                                            "is_reviewed": 1,
+                                            "user": {
+                                                "id": 3,
+                                                "name": "test1",
+                                                "email": "test1@gmail.com",
+                                                "is_admin": 0
+                                            },
+                                            "leave": {
+                                                "id": 1,
+                                                "name": "sick leave"
+                                            },
+                                            "result": {
+                                                "id": 1,
+                                                "leave_request_id": 1,
+                                                "review_user_id": 1,
+                                                "is_allowed": 1,
+                                                "user": {
+                                                    "id": 1,
+                                                    "name": "admin1",
+                                                    "email": "admin1@gmail.com",
+                                                    "is_admin": 1
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "id": 2,
+                                            "user_id": 4,
+                                            "leave_id": 1,
+                                            "description": "got some fever symptoms",
+                                            "start_date": "2024-08-20",
+                                            "start_time": "09:30:00",
+                                            "end_date": "2024-08-20",
+                                            "end_time": "18:30:00",
+                                            "is_reviewed": 1,
+                                            "user": {
+                                                "id": 4,
+                                                "name": "test2",
+                                                "email": "test2@gmail.com",
+                                                "is_admin": 0
+                                            },
+                                            "leave": {
+                                                "id": 1,
+                                                "name": "sick leave"
+                                            },
+                                            "result": {
+                                                "id": 2,
+                                                "leave_request_id": 2,
+                                                "review_user_id": 1,
+                                                "is_allowed": 1,
+                                                "user": {
+                                                    "id": 1,
+                                                    "name": "admin1",
+                                                    "email": "admin1@gmail.com",
+                                                    "is_admin": 1
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "first_page_url": "http://localhost:8000/api/leave?page=1",
+                                    "from": 1,
+                                    "last_page": 1,
+                                    "last_page_url": "http://localhost:8000/api/leave?page=1",
+                                    "links": [
+                                        {
+                                            "url": null,
+                                            "label": "&laquo; Previous",
+                                            "active": false
+                                        },
+                                        {
+                                            "url": "http://localhost:8000/api/leave?page=1",
+                                            "label": "1",
+                                            "active": true
+                                        },
+                                        {
+                                            "url": null,
+                                            "label": "Next &raquo;",
+                                            "active": false
+                                        }
+                                    ],
+                                    "next_page_url": null,
+                                    "path": "http://localhost:8000/api/leave",
+                                    "per_page": 10,
+                                    "prev_page_url": null,
+                                    "to": 2,
+                                    "total": 2
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "登入登出和個人資訊"
+        },
+        {
+            "name": "Users",
+            "description": "新增修改刪除使用者，或是列出使用者資訊，只有管理權限的使用者可以操作"
+        },
+        {
+            "name": "Leave",
+            "description": "請假相關動作"
+        }
+    ]
+}
