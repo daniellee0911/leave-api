@@ -17,6 +17,10 @@ class UserControllerTest extends TestCase
      */
     public function test_index_function_by_admin_user(): void
     {
+        // cache 測試
+        $this->assertNull(cache()->get('users-all:page-1'));
+        $this->assertNull(cache()->get('users-all-last-page'));
+
         // 未登入就執行
         $response = $this->getJson(
             route('users.index')
@@ -36,6 +40,10 @@ class UserControllerTest extends TestCase
             route('users.index')
         );
         $response->assertStatus(200);
+
+        // cache 測試
+        $this->assertNotNull(cache()->get('users-all:page-1'));
+        $this->assertNotNull(cache()->get('users-all-last-page'));
     }
 
     /**
@@ -82,6 +90,9 @@ class UserControllerTest extends TestCase
         );
         $response->assertStatus(401);
 
+        // cache 測試
+        $this->assertNull(cache()->get('users-info-id:' .$user->id));
+
         $loginUser = User::create([
             'name' => 'admin',
             'email' => 'admin@gmail.com',
@@ -95,6 +106,9 @@ class UserControllerTest extends TestCase
             route('users.show',$user->id)
         );
         $response->assertStatus(200);
+
+        // cache 測試
+        $this->assertNotNull(cache()->get('users-info-id:' .$user->id));
 
         // 用不存在的user id 執行
         $response = $this->getJson(

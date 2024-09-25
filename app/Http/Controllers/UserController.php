@@ -15,9 +15,11 @@ class UserController extends Controller
     // 列出所有使用者
     public function index(Request $request){
 
-        $users = User::paginate(10);
+        $users = cache()->rememberForever('users-all:page-' . request('page', default:1), function(){
+            return User::paginate(10);
+        });
 
-        
+        cache()->forever('users-all-last-page', $users->lastPage());
 
         return response($users, 200);
     }
@@ -28,8 +30,10 @@ class UserController extends Controller
         if(User::find($user_id)===null){
             return response(['message' => "The id has not been found"], 404);
         }
-        $user = User::with(['profile'])->find($user_id);
-       
+
+        $user = cache()->rememberForever('users-info-id:' . $user_id, function() use($user_id){
+            return User::with(['profile'])->find($user_id);
+        });
 
         return response($user, 200);
     }

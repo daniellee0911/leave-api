@@ -53,7 +53,9 @@ class AuthController extends Controller
     {
         $user = auth()->user();
 
-        $user = User::with(['profile'])->find($user->id);
+        $user = cache()->rememberForever('users-info-id:' . $user->id, function() use($user){
+            return User::with(['profile'])->find($user->id);
+        });
         
 
         return response($user, 200);
