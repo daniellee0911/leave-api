@@ -14,6 +14,12 @@ use OpenApi\Attributes as OA;
  * @OA\PathItem(
  *      path="/"
  *  )
+ * 
+ * @OA\server(
+ *      url = "http://localhost/api",
+ *      description="Docker:Localhost"
+ * )
+ * 
  * @OA\server(
  *      url = "http://localhost:8000/api",
  *      description="Localhost"
