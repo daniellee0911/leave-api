@@ -7,6 +7,10 @@
     },
     "servers": [
         {
+            "url": "http://localhost/api",
+            "description": "Docker:Localhost"
+        },
+        {
             "url": "http://localhost:8000/api",
             "description": "Localhost"
         }
