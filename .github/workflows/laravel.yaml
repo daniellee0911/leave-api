@@ -32,8 +32,10 @@ jobs:
       with:
         php-version: '8.2'
     - uses: actions/checkout@v4
-    - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+    - name: 'Create env file'
+      run: |
+        touch .env
+        echo "${{secrets.TEST_ENV_VARIABLE }}" >> .env
     - name: Install Dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
     - name: Generate key
@@ -56,3 +58,22 @@ jobs:
         DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         MYSQL_ROOT_PASSWORD: ${{ secrets.DB_PASSWORD }}
       run: php artisan test
+    - name: 'Change env file'
+      run: |
+        rm .env
+        touch .env
+        echo "${{secrets.ENV_VARIABLE }}" >> .env
+    - name: login to docker hub
+      env:
+        username: ${{secrets.DOCKERHUB_USERNAME}}
+        password: ${{secrets.DOCKERHUB_PASSWORD}}
+      run: |
+        docker login -u $username -p $password 
+    - name: create docker builder
+      run: |
+        docker buildx create --use --name mybuilder
+    - name: build the docker image and push
+      run: |
+        docker buildx build --platform linux/amd64,linux/arm64 . -f Dockerfile -t ${{secrets.DOCKERHUB_USERNAME}}/leave-test:latest --push
+          
+        
