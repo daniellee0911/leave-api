@@ -16,7 +16,7 @@ use OpenApi\Attributes as OA;
  *  )
  * 
  * @OA\server(
- *      url = "http://localhost/api",
+ *      url = "http://localhost/backend/api",
  *      description="Docker:Localhost"
  * )
  * 
@@ -64,7 +64,8 @@ use OpenApi\Attributes as OA;
  *         description="OK",
  *         @OA\JsonContent(
  *                example={
- *                     "message": "Successfully logged in"
+ *                     "message": "Successfully logged in",
+ *                     "expires_at": "2024-12-12T20:12:06.000000Z"
  *                }
  *            ),
  *     ),
@@ -866,7 +867,7 @@ use OpenApi\Attributes as OA;
  *     ),
  * )
  * @OA\Get(
- *     path="/leave",
+ *     path="/leaves",
  *     summary="取得全部請假狀態(管理權限只用者才可操作)",
  *     description="取得全部請假狀態(管理權限只用者才可操作)",
  *     tags={"Leave"},

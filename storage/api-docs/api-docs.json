@@ -7,7 +7,7 @@
     },
     "servers": [
         {
-            "url": "http://localhost/api",
+            "url": "http://localhost/backend/api",
             "description": "Docker:Localhost"
         },
         {
@@ -53,7 +53,8 @@
                             "application/json": {
                                 "schema": {},
                                 "example": {
-                                    "message": "Successfully logged in"
+                                    "message": "Successfully logged in",
+                                    "expires_at": "2024-12-12T20:12:06.000000Z"
                                 }
                             }
                         }
@@ -976,14 +977,14 @@
                 }
             }
         },
-        "/leave": {
+        "/leaves": {
             "get": {
                 "tags": [
                     "Leave"
                 ],
                 "summary": "取得全部請假狀態(管理權限只用者才可操作)",
                 "description": "取得全部請假狀態(管理權限只用者才可操作)",
-                "operationId": "8f5bd8b7bbd68b1507382ae51b4d35ec",
+                "operationId": "5ff3020d93ada4933bfbcba1b2afbd06",
                 "responses": {
                     "200": {
                         "description": "OK",
