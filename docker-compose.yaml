@@ -1,7 +1,7 @@
 services: 
-  nginx:
-    image: nginx:alpine
-    container_name: nginx
+  vue-nginx:
+    image: daniellee860911/leave-frontend
+    container_name: vue-nginx
     # restart: unless-stopped
     ports:
       - "80:80"
