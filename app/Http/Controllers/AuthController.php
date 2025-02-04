@@ -29,11 +29,13 @@ class AuthController extends Controller
             'token',                    // The name of the token
             ['*'],                      // Whatever abilities you want 
             Carbon::now()->addHours(9)  // The expiration date
-        )->plainTextToken;
-        
-        $cookie = cookie('token', $token, 60 * 9); // 9 hr
+        );
+       
+        $cookie = cookie('token', $token->plainTextToken, 60 * 9); // 9 hr
 
-        return response(['message' => "Successfully logged in"],200)
+        return response(['message' => "Successfully logged in",
+                         'expires_at' => $token->accessToken->expires_at],
+                         200)
                 ->withCookie($cookie);
     }    
    

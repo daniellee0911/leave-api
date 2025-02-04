@@ -164,6 +164,8 @@ class UserController extends Controller
         }catch(\Throwable $th){
             
             DB::rollBack();
+            report($th);
+            return response(['message' => "Server error"],500);
         }
 
         DB::commit();
