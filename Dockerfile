@@ -21,7 +21,7 @@ RUN apt-get update && apt-get -y install apt-utils nano wget dialog vim
 
 # Install important libraries
 RUN echo "Install important libraries"
-RUN apt-get -y install --fix-missing \
+RUN apt-get update && apt-get install -y  \
     cron \
     build-essential \
     git \
@@ -37,7 +37,12 @@ RUN apt-get -y install --fix-missing \
     libicu-dev \
     libonig-dev \
     libxml2-dev \
-    libpq-dev
+    libpq-dev \
+    libssl-dev \
+    libsasl2-dev \
+    pkg-config \
+    make \
+    gcc
 
 
 
@@ -48,7 +53,6 @@ RUN pecl install -o -f redis \
 RUN pecl install mongodb \
     && rm -rf /tmp/pear \
     && echo "extension=mongodb.so" >> /usr/local/etc/php/conf.d/mongodb.ini
-
 
 WORKDIR /var/www
 

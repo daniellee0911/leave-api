@@ -33,5 +33,6 @@ Route::middleware(['auth:sanctum','admin'])->group(function() {
 
     Route::get('/users/{user_id}/leaves', [LeaveController::class, 'show'])->name('users.leaves.show');
     Route::get('/leaves',[LeaveController::class, 'index'])->name('leaves.index');
+    Route::get('/leaves/request',[LeaveController::class, 'index_not_review'])->name('leaves.index_not_review');
     Route::post('/leaveRequest/{leave_request_id}/review',[LeaveController::class, 'reviewRequest'])->name('leaves.request.review');
 });   

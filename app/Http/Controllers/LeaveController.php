@@ -19,9 +19,17 @@ class LeaveController extends Controller
 {
     public function index(Request $request){
 
-        $leave = LeaveRequest::with(['user','leave','result','result.user'])->get();
+        $leave = LeaveRequest::with(['user','leave','result','result.user'])->paginate(10);
         return response($leave, 200);
     }
+
+    public function index_not_review(Request $request){
+        $leave = LeaveRequest::with(['user','leave','result','result.user'])
+                    ->where('is_reviewed', 0)->orderBy('id', 'desc')->paginate(10);
+        return response($leave, 200);
+    }
+
+
 
     public function show(Request $request,$user_id){
 
@@ -39,7 +47,7 @@ class LeaveController extends Controller
 
         $user = auth()->user();
         $leave = LeaveRequest::with(['user', 'leave', 'result', 'result.user'])
-                                ->where('user_id', $user->id)->get();
+                                ->where('user_id', $user->id)->paginate(10);
         return response($leave, 200);
     }
 
